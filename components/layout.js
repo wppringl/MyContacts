@@ -1,13 +1,16 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import SideNav from "./sideNav";
 import Header from "./header";
 
 const Layout = ({ children }) => (
-  <Flex>
-    <SideNav />
-    {/* <Header /> */}
-    {children}
-  </Flex>
+  <Box>
+    <Header />
+    <Flex>
+      <SideNav />
+      {/* <Header /> */}
+      {children}
+    </Flex>
+  </Box>
 );
 
 export default Layout;
