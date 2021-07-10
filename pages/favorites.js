@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import axios from "axios";
@@ -11,23 +11,23 @@ export default function Home() {
   const getContacts = useCallback(async () => {
     try {
       const response = await axios.get("/api/contacts");
-      setContactList(response.data);
+      setContactList(
+        response.data.filter((contact) => contact.firstName === "Jason")
+      );
     } catch (e) {
       console.error(e);
     }
   }, []);
 
-  {
-    getContacts;
-  }
+  useEffect(() => {
+    getContacts();
+  }, []);
 
   return (
     <Layout>
       <div className={styles.container}>
         <main className={styles.main}>
           <h1 className={styles.title}>Welcome To My Contact Organizer</h1>
-
-          <button onClick={getContacts}>Populate Page</button>
 
           <p>
             <a>First Name </a>

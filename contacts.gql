@@ -1,0 +1,15 @@
+type Contact @collection(name: "contacts") {
+  firstName: String!
+  lastName: String!
+  email: String!
+  phone: String!
+  job: String
+  pic: String
+  group: String
+  favorite: Boolean
+  addDate: Time
+}
+
+type Query {
+  allContacts: [Contact!]!
+}
