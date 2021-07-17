@@ -1,13 +1,34 @@
 import Link from "next/link";
-import { Box, Heading, UnorderedList, ListItem } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  UnorderedList,
+  ListItem,
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  ModalCloseButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useState, useCallback } from "react";
 import Head from "next/head";
-import Image from "next/image";
+//import Image from "next/image";
 import axios from "axios";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
+import AddContact from "../components/addContact";
 
 const SideNav = () => {
+  const { onOpen, onClose, isOpen } = useDisclosure();
+  const [modalMode, setModalMode] = useState();
+
+  const openAddContact = useCallback(() => {
+    setModalMode("addContact");
+    onOpen();
+  }, []);
+
   return (
     <Box
       as="nav"
@@ -17,7 +38,7 @@ const SideNav = () => {
       minHeight="100vh"
       background="lightgrey"
     >
-      <Heading as="h2" size="lg">
+      <Heading as="h2" size="lg" marginTop="2rem">
         {" "}
         Contacts{" "}
       </Heading>
@@ -34,7 +55,7 @@ const SideNav = () => {
         </ListItem>
       </UnorderedList>
 
-      <Heading as="h2" size="lg">
+      <Heading as="h2" size="lg" marginTop="2rem">
         {" "}
         Groups{" "}
       </Heading>
@@ -44,18 +65,36 @@ const SideNav = () => {
           <Link href="/family">Family</Link>
         </ListItem>
         <ListItem>
-          <Link href="/coworkers">Co-Workers</Link>
+          <Link href="/coWorkers">Co-Workers</Link>
         </ListItem>
         <ListItem>
           <Link href="/friends">Friends</Link>
         </ListItem>
         <ListItem>
-          <Link href="/other">Other Groups</Link>
+          <Link href="/otherGroups">Other Groups</Link>
         </ListItem>
         <ListItem>
-          <Link href="/none">No Group</Link>
+          <Link href="/noGroup">No Group</Link>
         </ListItem>
       </UnorderedList>
+
+      <Button
+        size="lg"
+        background="lightblue"
+        marginTop="2rem"
+        onClick={() => {
+          openAddContact();
+        }}
+      >
+        + Add Contact
+      </Button>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent padding="2rem">
+          <ModalCloseButton />
+          <ModalBody>{modalMode === "addContact" && <AddContact />}</ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
