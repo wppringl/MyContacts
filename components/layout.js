@@ -12,6 +12,7 @@ import {
   Modal,
   ModalBody,
   ModalContent,
+  ModalFooter,
   ModalOverlay,
   ModalCloseButton,
   useDisclosure,
@@ -50,7 +51,7 @@ const Layout = ({ children, contactList }) => {
             </p>
             <div>
               {contactList.map((contact) => (
-                <p>
+                <p key={contact._id}>
                   <Image
                     className="contactImage"
                     height="50px"
@@ -93,10 +94,19 @@ const Layout = ({ children, contactList }) => {
                 <ModalCloseButton />
                 <ModalBody>
                   {modalMode === "contactProfile" && <ContactProfile />}
-                </ModalBody>
-                <ModalBody>{modalMode === "edit" && <EditContact />}</ModalBody>
-                <ModalBody>
+                  {modalMode === "edit" && <EditContact />}
                   {modalMode === "delete" && <DeleteContact />}
+                  <Button
+                    type="submit"
+                    colorScheme="teal"
+                    mr={3}
+                    onClick={onClose}
+                  >
+                    Submit / Exit
+                  </Button>
+                  <Button colorScheme="blue" mr={3} onClick={onClose}>
+                    Cancel
+                  </Button>
                 </ModalBody>
               </ModalContent>
             </Modal>

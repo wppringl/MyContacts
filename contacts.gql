@@ -1,7 +1,7 @@
 type Contact @collection(name: "contacts") {
   firstName: String!
   lastName: String!
-  email: String!
+  email: String
   phone: String!
   job: String
   pic: String

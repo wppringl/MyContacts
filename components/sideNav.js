@@ -7,6 +7,7 @@ import {
   Button,
   Modal,
   ModalBody,
+  ModalFooter,
   ModalContent,
   ModalOverlay,
   ModalCloseButton,
@@ -93,6 +94,12 @@ const SideNav = () => {
         <ModalContent padding="2rem">
           <ModalCloseButton />
           <ModalBody>{modalMode === "addContact" && <AddContact />}</ModalBody>
+          <Button mt={3} colorScheme="teal" type="submit" onClick={onClose}>
+            Submit New Contact
+          </Button>
+          <Button colorScheme="blue" mt={3} onClick={onClose}>
+            Cancel
+          </Button>
         </ModalContent>
       </Modal>
     </Box>
