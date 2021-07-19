@@ -13,9 +13,7 @@ export default function Recents() {
       const response = await axios.get("/api/contacts");
       //const currentDate = getFullYear();
       //console.log(currentDate);
-      setContactList(
-        response.data.filter((contact) => contact.favorite === true)
-      );
+      setContactList(response.data.filter((contact) => contact.addDate));
     } catch (e) {
       console.error(e);
     }

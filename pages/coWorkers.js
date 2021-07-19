@@ -12,7 +12,7 @@ export default function Favorites() {
     try {
       const response = await axios.get("/api/contacts");
       setContactList(
-        response.data.filter((contact) => contact.favorite === true)
+        response.data.filter((contact) => contact.group === "Co-Workers")
       );
     } catch (e) {
       console.error(e);

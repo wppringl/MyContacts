@@ -5,14 +5,14 @@ import axios from "axios";
 import styles from "../styles/Home.module.css";
 import Layout from "../components/layout";
 
-export default function Favorites() {
+export default function NoGroup() {
   const [contactList, setContactList] = useState([]);
 
   const getContacts = useCallback(async () => {
     try {
       const response = await axios.get("/api/contacts");
       setContactList(
-        response.data.filter((contact) => contact.favorite === true)
+        response.data.filter((contact) => contact.group === "No Group")
       );
     } catch (e) {
       console.error(e);

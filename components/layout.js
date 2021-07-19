@@ -51,7 +51,7 @@ const Layout = ({ children, contactList }) => {
             </p>
             <div>
               {contactList.map((contact) => (
-                <p key={contact._id}>
+                <Flex key={contact._id} justifyContent="space-between">
                   <Image
                     className="contactImage"
                     height="50px"
@@ -84,7 +84,7 @@ const Layout = ({ children, contactList }) => {
                   >
                     Delete
                   </Button>
-                </p>
+                </Flex>
               ))}
             </div>
             {children}
@@ -93,9 +93,15 @@ const Layout = ({ children, contactList }) => {
               <ModalContent padding="2rem">
                 <ModalCloseButton />
                 <ModalBody>
-                  {modalMode === "contactProfile" && <ContactProfile />}
-                  {modalMode === "edit" && <EditContact />}
-                  {modalMode === "delete" && <DeleteContact />}
+                  {modalMode === "contactProfile" && (
+                    <ContactProfile singleContact={singleContact} />
+                  )}
+                  {modalMode === "edit" && (
+                    <EditContact singleContact={singleContact} />
+                  )}
+                  {modalMode === "delete" && (
+                    <DeleteContact singleContact={singleContact} />
+                  )}
                   <Button
                     type="submit"
                     colorScheme="teal"
@@ -118,10 +124,3 @@ const Layout = ({ children, contactList }) => {
 };
 
 export default Layout;
-
-// Tasks remaining
-// (1) Complete basic page design and contact and group pages
-// (2) Add buttons and functionality for adding contacts in side nav
-// (3) Add images and other data base information
-// (4) Make images buttons to edit/delete profiles as pop up window (maybe)
-// (5) Add edit/delete profile functionality to API calls
