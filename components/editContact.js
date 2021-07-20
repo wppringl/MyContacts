@@ -15,7 +15,7 @@ import axios from "axios";
 import styles from "../styles/Home.module.css";
 import contactProfile from "./contactProfile";
 
-const editContact = () => {
+const editContact = ({ onClose }) => {
   return (
     <Box>
       <FormControl as="fieldset">
@@ -33,8 +33,12 @@ const editContact = () => {
             <Radio value="No">No</Radio>
           </HStack>
         </RadioGroup>
-        <Button mt={4} colorScheme="teal" type="submit">
-          Submit
+
+        <Button type="submit" colorScheme="teal" mr={3} onClick={onClose}>
+          Submit Change
+        </Button>
+        <Button colorScheme="blue" mr={3} onClick={onClose}>
+          Cancel
         </Button>
       </FormControl>
     </Box>

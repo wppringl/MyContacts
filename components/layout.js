@@ -20,9 +20,9 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-const Layout = ({ children, contactList }) => {
+const Layout = ({ children, contactList, removeContact }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
-  const [singleContact, setSingleContact] = useState([]);
+  const [singleContact, setSingleContact] = useState({});
   const [modalMode, setModalMode] = useState();
 
   const getSingleContact = useCallback((clickedContact, mode) => {
@@ -38,7 +38,9 @@ const Layout = ({ children, contactList }) => {
         <SideNav />
         <div>
           <main>
-            <p>
+            <Flex justifyContent="space-between">
+              <a>Picture</a>
+              <a> </a>
               <a>First Name </a>
               <a> </a>
               <a>Last Name</a>
@@ -48,7 +50,7 @@ const Layout = ({ children, contactList }) => {
               <a>Phone Number</a>
               <a> </a>
               <a>Favorite</a>
-            </p>
+            </Flex>
             <div>
               {contactList.map((contact) => (
                 <Flex key={contact._id} justifyContent="space-between">
@@ -69,7 +71,6 @@ const Layout = ({ children, contactList }) => {
                   <a className="contactContent">{contact.lastName}</a>
                   <a className="contactContent">{contact.email}</a>
                   <a className="contactContent">{contact.phone}</a>
-                  <a className="contactContent">{contact.addDate}</a>
                   <Button
                     onClick={() => {
                       getSingleContact(contact, "edit");
@@ -94,25 +95,24 @@ const Layout = ({ children, contactList }) => {
                 <ModalCloseButton />
                 <ModalBody>
                   {modalMode === "contactProfile" && (
-                    <ContactProfile singleContact={singleContact} />
+                    <ContactProfile
+                      singleContact={singleContact}
+                      onClose={onClose}
+                    />
                   )}
                   {modalMode === "edit" && (
-                    <EditContact singleContact={singleContact} />
+                    <EditContact
+                      singleContact={singleContact}
+                      onClose={onClose}
+                    />
                   )}
                   {modalMode === "delete" && (
-                    <DeleteContact singleContact={singleContact} />
+                    <DeleteContact
+                      singleContact={singleContact}
+                      onClose={onClose}
+                      removeContact={removeContact}
+                    />
                   )}
-                  <Button
-                    type="submit"
-                    colorScheme="teal"
-                    mr={3}
-                    onClick={onClose}
-                  >
-                    Submit / Exit
-                  </Button>
-                  <Button colorScheme="blue" mr={3} onClick={onClose}>
-                    Cancel
-                  </Button>
                 </ModalBody>
               </ModalContent>
             </Modal>

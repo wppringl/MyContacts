@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { Box, Heading, Image } from "@chakra-ui/react";
+import { Box, Heading, Image, Button } from "@chakra-ui/react";
 //import { StarIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import styles from "../styles/Home.module.css";
 
-const contactProfile = ({ children, singleContact }) => {
+const contactProfile = ({ children, singleContact, onClose }) => {
   return (
     <Box>
       <Image
@@ -36,6 +36,10 @@ const contactProfile = ({ children, singleContact }) => {
       {singleContact._ts}
       <br />
       {singleContact.favorite === true && <a>Favorite contact</a>}
+      <br />
+      <Button colorScheme="blue" mr={3} onClick={onClose}>
+        Close Profile
+      </Button>
     </Box>
   );
 };

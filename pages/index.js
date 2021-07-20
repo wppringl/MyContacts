@@ -17,6 +17,13 @@ import {
 
 export default function Home() {
   const [contactList, setContactList] = useState([]);
+  const removeContact = (id) => {
+    const index = contactList.findIndex((contact) => contact._id === id);
+    setContactList([
+      ...contactList.slice(0, index),
+      ...contactList.slice(index + 1),
+    ]);
+  };
 
   const getContacts = useCallback(async () => {
     try {
@@ -31,5 +38,5 @@ export default function Home() {
     getContacts();
   }, []);
 
-  return <Layout contactList={contactList} />;
+  return <Layout contactList={contactList} removeContact={removeContact} />;
 }

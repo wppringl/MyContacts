@@ -4,11 +4,12 @@ import axios from "axios";
 import { useState, useCallback, useEffect } from "react";
 import styles from "../styles/Home.module.css";
 
-const DeleteContact = ({ children, singleContact }) => {
-  const deleteContact = useCallback(async (contactID) => {
+const DeleteContact = ({ singleContact, onClose, removeContact }) => {
+  const deleteContact = useCallback(async () => {
     try {
-      console.log(singleContact._id);
       await axios.delete(`/api/contacts/${singleContact._id}`);
+      onClose();
+      removeContact(singleContact._id);
     } catch (e) {
       console.error(e);
     }
@@ -17,13 +18,18 @@ const DeleteContact = ({ children, singleContact }) => {
   return (
     <Box>
       <Alert mb={5}>Are you sure you want to delete this contact?</Alert>
-
       <Button
+        type="submit"
+        colorScheme="red"
+        mr={3}
         onClick={() => {
-          deleteContact(singleContact);
+          deleteContact();
         }}
       >
-        Delete
+        Delete Contact
+      </Button>
+      <Button colorScheme="blue" mr={3} onClick={onClose}>
+        Cancel
       </Button>
     </Box>
   );
